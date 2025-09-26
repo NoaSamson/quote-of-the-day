@@ -1,0 +1,41 @@
+name: Python — syntax & ruff lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Syntax check + ruff
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.12]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install ruff
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff
+
+      - name: Syntax check (compile all .py)
+        run: |
+          # Exit non-zero if any file fails to compile
+          python -m compileall -q .
+
+      - name: Run ruff linter
+        run: |
+          # Fail the job if ruff finds issues
+          ruff check .
+
+# Implemented with the help of GitHub Copilot
