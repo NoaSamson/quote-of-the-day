@@ -10,7 +10,13 @@ str = input()
 if str.lower() == "y":
     print("Please enter your quote fully:")
     new_quote = input()
-    quote_list.append(new_quote)
+    with open("user_input_quotes.txt", "a") as f:
+        f.write(new_quote)
+        f.write("\n")
+
+with open("user_input_quotes.txt", "r") as file:
+    for line in file:
+        quote_list.append(line.strip())
 
 print()
 print("Here is the randomly chosen quote:")
