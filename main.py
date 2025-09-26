@@ -23,4 +23,4 @@ print("Here is the randomly chosen quote:")
 
 index = random.randrange(len(quote_list))
 
-prit(quote_list[index])
+print(quote_list[index])
